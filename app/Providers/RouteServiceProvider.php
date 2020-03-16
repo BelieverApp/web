@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapAdminRoutes();
         $this->mapClientRoutes();
         $this->mapBelieverRoutes();
+        $this->mapReferralRoutes();
         $this->mapWebRoutes();
 
         //
@@ -92,5 +93,11 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapReferralRoutes()
+    {
+        Route::namespace($this->namespace)
+             ->group(base_path('routes/referral.php'));
     }
 }
