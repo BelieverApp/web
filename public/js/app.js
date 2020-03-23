@@ -79768,7 +79768,10 @@ __webpack_require__(/*! ./believer/deleteMessage.js */ "./resources/js/believer/
 
 __webpack_require__(/*! ./believer/createManagerAccount.js */ "./resources/js/believer/createManagerAccount.js");
 
-__webpack_require__(/*! ./believer/deleteManagerAccount.js */ "./resources/js/believer/deleteManagerAccount.js");
+__webpack_require__(/*! ./believer/deleteManagerAccount.js */ "./resources/js/believer/deleteManagerAccount.js"); // referrals
+
+
+__webpack_require__(/*! ./believer/referrals.js */ "./resources/js/believer/referrals.js");
 
 /***/ }),
 
@@ -80470,6 +80473,27 @@ $(document).on("click", ".markAsRedeemed", function () {
     processData: false
   });
   return false;
+});
+
+/***/ }),
+
+/***/ "./resources/js/believer/referrals.js":
+/*!********************************************!*\
+  !*** ./resources/js/believer/referrals.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on("click", ".toggleClosed", function () {
+  var referralId = $(this).attr('data-referral-id');
+  $.ajax({
+    url: "/admin/referrals/".concat(referralId),
+    type: 'PUT',
+    dataType: 'json',
+    data: {
+      closed: this.checked
+    }
+  });
 });
 
 /***/ }),
@@ -81301,8 +81325,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/believer/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/believer/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/mantis/dev/culturebrand/repo/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/mantis/dev/culturebrand/repo/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

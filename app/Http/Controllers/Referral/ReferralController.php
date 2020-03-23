@@ -81,7 +81,7 @@ class ReferralController extends Controller
             return $idErrorMessage;
         }
 
-        $result = DB::select('select id from referral_orgs where id = ?', [$params['id']]);
+        $result = DB::select('select id from referrers where url_id = ?', [$params['id']]);
 
         if (!isset($result[0])) {
             return $idErrorMessage;

@@ -27,3 +27,8 @@ Route::resource('/admin/reports', 'Admin\ReportController');
 //user nav
 Route::resource('/admin/settings', 'Admin\SettingsController');
 Route::resource('/admin/profile', 'Admin\ProfileController');
+
+//referrals
+Route::get('/admin/referrals', 'Admin\ReferralController@index');
+Route::get('/admin/referrals/{id}', 'Admin\ReferralController@detail');
+Route::put('/admin/referrals/{id}', 'Admin\ReferralController@put');
