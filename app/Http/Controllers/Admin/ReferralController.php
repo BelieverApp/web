@@ -20,7 +20,7 @@ class ReferralController extends Controller
 
     public function index()
     {
-        $results = DB::select('select er.id, r.name as referrerName, er.data, er.closed, er.created_at from external_referrals as er join referrers as r on er.referrer_id = r.id');
+        $results = DB::select('select er.id, r.name as referrerName, er.data, er.closed, er.created_at, b.name as client from external_referrals as er join referrers as r on er.referrer_id = r.id join brands as b on r.brand_id = b.id');
 
         $entries = array_map(function($element) {
             $result = array_merge((array) $element, json_decode($element->data, true));

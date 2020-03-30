@@ -1,5 +1,5 @@
-@extends('layouts.admin_layout')
-@include('admin.includes.nav', ['section' => 'referrals'])
+@extends('layouts.client_layout')
+@include('clients.includes.nav', ['section' => 'referrals'])
 
 @section('content')
 
@@ -18,19 +18,17 @@
                         <th>Date</th>
                         <th>Referrer</th>
                         <th>Closed</th>
-                        <th>Client</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($entries as $e)
                 <tr>
-                    <td><a href="/admin/referrals/{{ $e['id'] }}">{{ $e['name'] }}</a></td>
+                    <td><a href="/client/referrals/{{ $e['id'] }}">{{ $e['name'] }}</a></td>
                     <td>{{ $e['email'] }}</td>
                     <td>{{ $e['phone'] }}</td>
                     <td>{{ $e['created_at'] }}</td>
                     <td>{{ $e['referrerName'] }}</td>
                     <td><input class="req toggleClosed" type="checkbox" <?php if ($e['closed']) echo 'checked'?> data-referral-id="{{ $e['id'] }}"></input></td>
-                    <td>{{ $e['client'] }}</td>
                 </tr>
 
                 @endforeach

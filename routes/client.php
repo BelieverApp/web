@@ -26,7 +26,10 @@ Route::resource('/client/messages', 'Client\MessagesController');
 
 
 //referrals
-Route::resource('/client/referrals', 'Client\ReferralController');
+//Route::resource('/client/referrals', 'Client\ReferralController');
+Route::get('/client/referrals', 'Client\ReferralsController@index');
+Route::get('/client/referrals/{id}', 'Client\ReferralsController@detail');
+Route::put('/client/referrals/{id}', 'Client\ReferralsController@put');
 
 //reporting
 Route::resource('/client/reports', 'Client\ReportController');

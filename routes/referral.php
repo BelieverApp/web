@@ -10,6 +10,5 @@ Route::get('/referral/{id}', 'Referral\ReferralController@referralRedirect');
 Route::get('/morrison-share', 'Referral\ReferralController@exampleGenLink');
 Route::get('/morrison-referee', 'Referral\ReferralController@exampleReferee');
 
-Route::get('/orgs', 'Referral\ReferralController@orgs');
 Route::get('/referrers', 'Referral\ReferralController@referrers');
 Route::get('/referrals', 'Referral\ReferralController@referrals');

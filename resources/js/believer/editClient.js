@@ -23,6 +23,7 @@ $(document).on("click", ".editClient", function() {
     var province = $("#province").val();
     var phone1 = $("#phone1").val();
     var phone2 = $("#phone2").val();
+    var refereeUrl = $("#referee_url").val();
 
     formData.append('clientId', clientId);
     formData.append('company_name', company_name);
@@ -40,6 +41,7 @@ $(document).on("click", ".editClient", function() {
     formData.append('province', province);
     formData.append('phone1', phone1);
     formData.append('phone2', phone2);
+    formData.append('referee_url', refereeUrl);
     if (typeof logo !== 'undefined'){
         formData.append('logo', logo);
     }

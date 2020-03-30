@@ -52,7 +52,7 @@ class ReferralController extends Controller
             $urlId = $result[0]->url_id;
         } else {
             $urlId = uniqid();
-            DB::insert('insert into referrers(referral_org_id, name, email, url_id) values(?, ?, ?, ?)', [$partyId, $name, $email, $urlId]);
+            DB::insert('insert into referrers(brand_id, name, email, url_id) values(?, ?, ?, ?)', [$partyId, $name, $email, $urlId]);
         }
 
         $refEndpoint = env('APP_URL') . '/referral/';
@@ -132,13 +132,13 @@ class ReferralController extends Controller
             abort(404);
         }
 
-        $result = DB::select('select referree_url from referrers join referral_orgs on referrers.referral_org_id = referral_orgs.id where url_id = ?', [$id]);
+        $result = DB::select('select referee_url from referrers join brands on referrers.brand_id = brands.id where url_id = ?', [$id]);
 
         if (!isset($result[0])) {
             abort(404);
         }
 
-        return redirect($result[0]->referree_url . '?id=' . $id);
+        return redirect($result[0]->referee_url . '?id=' . $id);
     }
 
 
@@ -152,12 +152,6 @@ class ReferralController extends Controller
     public function exampleReferee(Request $request)
     {
         return view('referral.morrison_referee');
-    }
-
-    public function orgs(Request $request)
-    {
-        $orgs = DB::select('select * from referral_orgs');
-        return $orgs;
     }
 
     public function referrers(Request $request)

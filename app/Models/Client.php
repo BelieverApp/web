@@ -25,7 +25,8 @@ class Client extends Model
         'province',
         'postal_code',
         'phone1',
-        'phone2'
+        'phone2',
+        'referee_url'
     ];
 
     public function managers()
@@ -78,7 +79,8 @@ class Client extends Model
                 'postal_code' => $request->postal_code,
                 'province' => $request->province,
                 'phone1' => $request->phone1,
-                'phone2' => $request->phone2
+                'phone2' => $request->phone2,
+                'referee_url' => $request->referee_url,
             ];
 
             if (isset($logo2upload)) {
@@ -103,6 +105,25 @@ class Client extends Model
         $logo1 = $request->logo;
         $logo2 = $request->logo2;
         $banner = $request->banner;
+
+        $data = [
+            'name' => $request->company_name,
+            'unique_name' => $request->unique_name,
+            'description' => $request->description,
+            'landingpage_title' => $request->landingpage_title,
+            'landingpage_content' => $request->landingpage_content,
+            'banner' => $old_banner,
+            'address1' => $request->address1,
+            'address2' => $request->address2,
+            'logo' => $old_logo1,
+            'logo2' => $old_logo2,
+            'city' => $request->city,
+            'postal_code' => $request->postal_code,
+            'province' => $request->province,
+            'phone1' => $request->phone1,
+            'phone2' => $request->phone2,
+            'referee_url' => $request->referee_url,
+        ];
 
         if( isset($logo1) || isset($logo2) || isset($banner) ){
 
@@ -138,42 +159,11 @@ class Client extends Model
                 $image_banner = $old_banner; //just put the old one back.
             }
 
-            $client->update([
-                'name' => $request->company_name,
-                'unique_name' => $request->unique_name,
-                'description' => $request->description,
-                'logo' => $image_logo1,
-                'logo2' => $image_logo2,
-                'landingpage_title' => $request->landingpage_title,
-                'landingpage_content' => $request->landingpage_content,
-                'banner' => $image_banner,
-                'address1' => $request->address1,
-                'address2' => $request->address2,
-                'city' => $request->city,
-                'postal_code' => $request->postal_code,
-                'province' => $request->province,
-                'phone1' => $request->phone1,
-                'phone2' => $request->phone2
-            ]);
-        } else {
-            $client->update([
-                'name' => $request->company_name,
-                'unique_name' => $request->unique_name,
-                'description' => $request->description,
-                'logo' => $old_logo1,
-                'logo2' => $old_logo2,
-                'landingpage_title' => $request->landingpage_title,
-                'landingpage_content' => $request->landingpage_content,
-                'banner' => $old_banner,
-                'address1' => $request->address1,
-                'address2' => $request->address2,
-                'city' => $request->city,
-                'postal_code' => $request->postal_code,
-                'province' => $request->province,
-                'phone1' => $request->phone1,
-                'phone2' => $request->phone2
-            ]);
+            $data['logo'] = $image_logo1;
+            $data['logo2'] = $image_logo2;
         }
+
+        $client->update($data);
 
         return $client;
     }

@@ -113,6 +113,13 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-6 control-label">Referee url</label>
+                <div class="col-sm-10">
+                    <input type="text" id="referee_url" name="referee_url" class="form-control" value="{{ $client->referee_url }}" placeholder="Referee Url">
+                </div>
+            </div>
+
 
         </div>
         </div>
