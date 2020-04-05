@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-
 <form method="POST" enctype="multipart/form-data" action="/admin/updateClient" class="form-horizontal">
     @csrf
     <input type="hidden" name="client_id" id="client_id" value="{{ $client->id }}" />
@@ -85,44 +84,61 @@
                             </div>
                         </div>
                     </div>
-            </div>
+                </div>
 
+                <div class="col-6">
 
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Address<span class="req">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="address1" name="address1" class="form-control" value="{{ $client->address1 }}" placeholder="Address Line 1"><br />
+                            <input type="text" id="address2" name="address2" class="form-control" value="{{ $client->address2 }}" placeholder="Address Line 2 (optional)">
+                        </div>
+                    </div>
 
-        <div class="col-6">
+                    <div class="input-group form-group col-10">
+                        <input type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ $client->city }}">
+                        <input type="text" class="form-control" name="province" id="province" placeholder="Province/State" value="{{ $client->province }}">
+                        <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="Postal/Zip Code" value="{{ $client->postal_code }}">
+                    </div>
 
-            <div class="form-group">
-                <label class="col-sm-6 control-label">Address<span class="req">*</span></label>
-                <div class="col-sm-10">
-                    <input type="text" id="address1" name="address1" class="form-control" value="{{ $client->address1 }}" placeholder="Address Line 1"><br />
-                    <input type="text" id="address2" name="address2" class="form-control" value="{{ $client->address2 }}" placeholder="Address Line 2 (optional)">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Phone<span class="req">*</span></label>
+                        <div class="col-sm-10">
+                            <input type="text" id="phone1" name="phone1" class="form-control" value="{{ $client->phone1 }}" placeholder="Phone 1"><br />
+                            <input type="text" id="phone2" name="phone2" class="form-control" value="{{ $client->phone2 }}" placeholder="Phone 2 (optional)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Referee URL</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="referee_url" name="referee_url" class="form-control" value="{{ $client->referee_url }}" placeholder="URL of client referee landing page">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Referral Css URL</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="referral_css_url" name="referral_css_url" class="form-control" value="{{ $client->referral_css_url }}" placeholder="URL of client css file for all referral pages">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Products</label>
+                        <div class="col-sm-10">
+                            <button id="product-add" class="btn btn-secondary mb-3" type="button">Add</button>
+                            <div id="product-group"></div>
+
+                            <div id="product-template" class="d-flex mb-1" style="display: none !important">
+                                <input type="text" class="product-field form-control" placeholder="Product Name">
+                                <button class="product-delete btn btn-small btn-danger" type="button"><i class="fa fa-close"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-            <div class="input-group form-group col-10">
-                <input type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ $client->city }}">
-                <input type="text" class="form-control" name="province" id="province" placeholder="Province/State" value="{{ $client->province }}">
-                <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="Postal/Zip Code" value="{{ $client->postal_code }}">
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-6 control-label">Phone<span class="req">*</span></label>
-                <div class="col-sm-10">
-                    <input type="text" id="phone1" name="phone1" class="form-control" value="{{ $client->phone1 }}" placeholder="Phone 1"><br />
-                    <input type="text" id="phone2" name="phone2" class="form-control" value="{{ $client->phone2 }}" placeholder="Phone 2 (optional)">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-6 control-label">Referee url</label>
-                <div class="col-sm-10">
-                    <input type="text" id="referee_url" name="referee_url" class="form-control" value="{{ $client->referee_url }}" placeholder="Referee Url">
-                </div>
-            </div>
-
-
-        </div>
-        </div>
         </div>
     </div>
 
@@ -140,5 +156,23 @@
 @endsection
 
 @section('scripts')
+  $(document).ready(() => {
+    const addElement = text => {
+      const instance = $('#product-template').clone();
+      instance.css('display', 'inherit');
+      instance.appendTo('#product-group');
+      instance.find('input').val(text);
 
+      instance.find('.product-delete').on('click', function() {
+        $(this).parent().remove();
+      });
+    };
+
+    const products = JSON.parse('@json($client->products)');
+    if (products) {
+      products.forEach(product => addElement(product));
+    }
+
+    $('#product-add').on('click', () => addElement());
+  });
 @endsection

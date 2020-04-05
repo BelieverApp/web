@@ -62,7 +62,8 @@ class ClientController extends Controller
     public function edit($id)
     {
         $client = Client::getClientById($id);
-        return view('admin.clients.edit', ['client' => $client]);
+        $client->products = json_decode($client->products, true);
+        return view('admin.clients.edit', [ 'client' => $client ]);
     }
 
     public function update(Request $request)

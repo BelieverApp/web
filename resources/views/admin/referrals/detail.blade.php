@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" id="name" name="name" class="form-control" value="{{ $data['name'] }}" required disabled>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ $data['name'] }}" disabled>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" id="email" name="email" class="form-control" value="{{ $data['email'] }}" required disabled>
+                            <input type="text" id="email" name="email" class="form-control" value="{{ $data['email'] }}" disabled>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,16 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">Phone</label>
                         <div class="col-sm-10">
-                            <input type="text" id="phone" name="phone" class="form-control" value="{{ $data['phone'] }}" required disabled>
+                            <input type="text" id="phone" name="phone" class="form-control" value="{{ $data['phone'] }}" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">Product</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="product" name="product" class="form-control" value="{{ $data['product'] ?? 'None' }}" disabled>
                         </div>
                     </div>
                 </div>
@@ -40,7 +49,7 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">Closed</label>
                         <div class="col-sm-10">
-                            <input type="checkbox" id="closed" name="closed" class="form-control" <?php if ($data['closed']) echo 'checked' ?>  required disabled>
+                            <input type="checkbox" id="closed" name="closed" class="form-control" <?php if ($data['closed']) echo 'checked' ?>  disabled>
                         </div>
                     </div>
                 </div>
@@ -57,7 +66,7 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">Name</label>
                         <div class="col-sm-10">
-                            <input type="text" id="name" name="name" class="form-control" value="{{ $data['referrerName'] }}" required disabled>
+                            <input type="text" id="name" name="name" class="form-control" value="{{ $data['referrerName'] }}" disabled>
                         </div>
                     </div>
                 </div>
@@ -66,7 +75,7 @@
                     <div class="form-group">
                         <label class="col-sm-12 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" id="email" name="email" class="form-control" value="{{ $data['referrerEmail'] }}" required disabled>
+                            <input type="text" id="email" name="email" class="form-control" value="{{ $data['referrerEmail'] }}" disabled>
                         </div>
                     </div>
                 </div>

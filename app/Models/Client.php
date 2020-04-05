@@ -26,7 +26,9 @@ class Client extends Model
         'postal_code',
         'phone1',
         'phone2',
-        'referee_url'
+        'referee_url',
+        'referral_css_url',
+        'products',
     ];
 
     public function managers()
@@ -81,6 +83,8 @@ class Client extends Model
                 'phone1' => $request->phone1,
                 'phone2' => $request->phone2,
                 'referee_url' => $request->referee_url,
+                'referral_css_url' => $request->referral_css_url,
+                'products' => $request->products,
             ];
 
             if (isset($logo2upload)) {
@@ -123,6 +127,8 @@ class Client extends Model
             'phone1' => $request->phone1,
             'phone2' => $request->phone2,
             'referee_url' => $request->referee_url,
+            'referral_css_url' => $request->referral_css_url,
+            'products' => $request->products,
         ];
 
         if( isset($logo1) || isset($logo2) || isset($banner) ){

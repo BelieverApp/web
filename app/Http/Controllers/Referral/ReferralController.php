@@ -28,9 +28,21 @@ class ReferralController extends Controller
             return 'invalid parameters';
         }
 
+        $partyId = $params['partyId'];
+        $externalCSS = $params['css'] ?? null;
+
+        $result = DB::select('select referral_css_url from brands where id = ?', [$partyId]);
+
+        if (!isset($result[0])) {
+            abort(400);
+        }
+
+        $css = $result[0]->referral_css_url ?? null;
+
         return view('referral.gen_link')
-          ->with('externalCss', $params['css'] ?? null)
-          ->with('partyId', $params['partyId']);
+          ->with('externalCss', $externalCSS)
+          ->with('cssUrl', $css)
+          ->with('partyId', $partyId);
     }
 
     public function generateLink(Request $request)
@@ -45,6 +57,14 @@ class ReferralController extends Controller
         $name = trim($request->input('name'));
         $email = trim($request->input('email'));
 
+        $result = DB::select('select referral_css_url from brands where id = ?', [$partyId]);
+
+        if (!isset($result[0])) {
+            abort(400);
+        }
+
+        $css = $result[0]->referral_css_url ?? null;
+
         $urlId = null;
         $result = DB::select('select url_id from referrers where email = ?', [$email]);
 
@@ -57,9 +77,17 @@ class ReferralController extends Controller
 
         $refEndpoint = env('APP_URL') . '/referral/';
         $refLink = $refEndpoint . $urlId;
+        $refLinkEncoded = urlencode($refLink);
+        $emailSubject = '';
+        $emailBody = rawurlencode('Your referral link: ' . $refLink);
 
         return view('referral.generated_link')
-          ->with('link', $refLink);
+          ->with('externalCss', $request->input('externalCss') ?? null)
+          ->with('link', $refLink)
+          ->with('linkEncoded', $refLinkEncoded)
+          ->with('cssUrl', $css)
+          ->with('emailSubject', $emailSubject)
+          ->with('emailBody', $emailBody);
     }
 
     public function refereeFrame(Request $request)
@@ -81,15 +109,20 @@ class ReferralController extends Controller
             return $idErrorMessage;
         }
 
-        $result = DB::select('select id from referrers where url_id = ?', [$params['id']]);
+        $result = DB::select('select r.id, referral_css_url, products from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$params['id']]);
 
         if (!isset($result[0])) {
             return $idErrorMessage;
         }
 
+        $products = json_decode($result[0]->products, true) ?? [];
+        $css = $result[0]->referral_css_url ?? null;
+
         return view('referral.referee')
           ->with('id', $params['id'])
-          ->with('externalCss', $params['css']);
+          ->with('externalCss', $params['css'] ?? null)
+          ->with('cssUrl', $css ?? null)
+          ->with('products', $products);
     }
 
     public function refereeData(Request $request)
@@ -99,6 +132,7 @@ class ReferralController extends Controller
             'lastName' => 'required|max:255',
             'email' => 'required|email',
             'phone' => 'required',
+            'product' => 'required|max:255',
             'id' => 'required',
         ]);
 
@@ -107,19 +141,25 @@ class ReferralController extends Controller
             'lastName' => $request->input('lastName'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),
+            'product' => $request->input('product'),
         ]);
 
-        $result = DB::select('select id from referrers where url_id = ?', [$request->input('id')]);
+        $result = DB::select('select r.id, referral_css_url from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$request->input('id')]);
 
         if (!isset($result[0])) {
             return 'Referrer not found, is your referral link correct?';
         }
 
+        $css = $result[0]->referral_css_url ?? null;
         $referrerId = $result[0]->id;
 
-        DB::select('insert into external_referrals(referrer_id, data) values(?, ?)', [$referrerId, $data]);
+        \Log::info($result);
 
-        return view('referral.referee_done');
+        DB::insert('insert into external_referrals(referrer_id, data) values(?, ?)', [$referrerId, $data]);
+
+        return view('referral.referee_done')
+            ->with('externalCss', $request->input('externalCss') ?? null)
+            ->with('cssUrl', $css);
     }
 
     public function referralRedirect(Request $request, $id)

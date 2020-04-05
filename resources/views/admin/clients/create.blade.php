@@ -108,6 +108,32 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-6 control-label">Referee URL</label>
+                <div class="col-sm-10">
+                    <input type="text" id="referee_url" name="referee_url" class="form-control"  placeholder="URL of client referee landing page">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-6 control-label">Referral Css URL</label>
+                <div class="col-sm-10">
+                    <input type="text" id="referral_css_url" name="referral_css_url" class="form-control"  placeholder="URL of client css file for all referral pages">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-6 control-label">Products</label>
+                <div class="col-sm-10">
+                    <button id="product-add" class="btn btn-secondary mb-3" type="button">Add</button>
+                    <div id="product-group"></div>
+
+                    <div id="product-template" class="d-flex mb-1" style="display: none !important">
+                        <input type="text" class="product-field form-control" placeholder="Product Name">
+                        <button class="product-delete btn btn-small btn-danger" type="button"><i class="fa fa-close"></i></button>
+                    </div>
+                </div>
+            </div>
 
         </div>
         </div>
@@ -124,4 +150,21 @@
         </div>
     </div>
 </form>
+@endsection
+
+@section('scripts')
+  $(document).ready(() => {
+    const addElement = text => {
+      const instance = $('#product-template').clone();
+      instance.css('display', 'inherit');
+      instance.appendTo('#product-group');
+      instance.find('input').val(text);
+
+      instance.find('.product-delete').on('click', function() {
+        $(this).parent().remove();
+      });
+    };
+
+    $('#product-add').on('click', () => addElement());
+  });
 @endsection

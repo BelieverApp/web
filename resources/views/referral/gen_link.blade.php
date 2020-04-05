@@ -7,13 +7,35 @@ if(isset($externalCss)) {
 <?php
 }
 ?>
+
+<?php
+if(isset($cssUrl)) {
+?>
+    <link rel="stylesheet" href="{{ $cssUrl }}">
+<?php
+}
+?>
   </head>
   <body>
-    <form class="generate-link-form" action="generate-link" method="post" target="_self">
-      <input class="generate-link-name" name="name" type="text" placeholder="Name" required>
-      <input class="generate-link-email" name="email" type="email" placeholder="Email" required>
-      <input name="partyId" type="hidden" value="{{ $partyId }}">
-      <button class="generate-link-submit" type="submit">Generate Link</button>
-    </form>
+    <div class="generate-link-page">
+      <form class="generate-link-form" action="generate-link" method="post" target="_self">
+        <input name="partyId" type="hidden" value="{{ $partyId }}">
+        <input name="externalCss" type="hidden" value="{{ $externalCss ?? null }}">
+
+        <div class="referrer-fields">
+          <div class="input-group">
+            <label for="referrer-name">Name</label>
+            <input class="referrer-name" name="name" id="referrer-name" type="text" placeholder="Name" required>
+          </div>
+
+          <div class="input-group">
+            <label for="referrer-email">Email</label>
+            <input class="referrer-email" name="email" id="referrer-email" type="email" placeholder="Email" required>
+          </div>
+        </div>
+
+        <button class="generate-link-submit" type="submit">Generate Link</button>
+      </form>
+    </div>
   </body>
 </html>

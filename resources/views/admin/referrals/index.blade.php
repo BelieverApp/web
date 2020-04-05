@@ -15,6 +15,7 @@
                         <th>Referee</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Product</th>
                         <th>Date</th>
                         <th>Referrer</th>
                         <th>Closed</th>
@@ -27,6 +28,7 @@
                     <td><a href="/admin/referrals/{{ $e['id'] }}">{{ $e['name'] }}</a></td>
                     <td>{{ $e['email'] }}</td>
                     <td>{{ $e['phone'] }}</td>
+                    <td>{{ $e['product'] ?? 'None' }}</td>
                     <td>{{ $e['created_at'] }}</td>
                     <td>{{ $e['referrerName'] }}</td>
                     <td><input class="req toggleClosed" type="checkbox" <?php if ($e['closed']) echo 'checked'?> data-referral-id="{{ $e['id'] }}"></input></td>

@@ -80259,6 +80259,8 @@ $(document).on("click", ".deleteReward", function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+var _this = this;
+
 $(document).on("click", ".editClient", function () {
   // e.preventDefault();
   console.log("client edit requested");
@@ -80283,6 +80285,11 @@ $(document).on("click", ".editClient", function () {
   var phone1 = $("#phone1").val();
   var phone2 = $("#phone2").val();
   var refereeUrl = $("#referee_url").val();
+  var referral_css_url = $("#referral_css_url").val();
+  var products = [];
+  $('#product-group .product-field').each(function (i, e) {
+    return products.push($(e).val());
+  });
   formData.append('clientId', clientId);
   formData.append('company_name', company_name);
   formData.append('unique_name', unique_name);
@@ -80300,6 +80307,8 @@ $(document).on("click", ".editClient", function () {
   formData.append('phone1', phone1);
   formData.append('phone2', phone2);
   formData.append('referee_url', refereeUrl);
+  formData.append('referral_css_url', referral_css_url);
+  formData.append('products', JSON.stringify(products));
 
   if (typeof logo !== 'undefined') {
     formData.append('logo', logo);
@@ -80314,11 +80323,11 @@ $(document).on("click", ".editClient", function () {
   }
 
   console.log(formData);
-  $(this).html("Processing");
-  $(this).prop('disabled', true);
-  $(this).find('i:first').removeClass("fa-check");
-  $(this).find('i:first').addClass("fa-spinner");
-  $(this).find('i:first').addClass("fa-spin");
+  $(_this).html("Processing");
+  $(_this).prop('disabled', true);
+  $(_this).find('i:first').removeClass("fa-check");
+  $(_this).find('i:first').addClass("fa-spinner");
+  $(_this).find('i:first').addClass("fa-spin");
   $.ajax({
     url: '/admin/updateClient',
     type: 'POST',
