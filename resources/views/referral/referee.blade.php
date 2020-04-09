@@ -45,15 +45,19 @@ if(isset($cssUrl)) {
         </div>
 
         @if (count($products) > 0)
-          <div class="section input-group">
-            <label for="referee-product">Which community are you interested in?</label>
-            <select id="referee-product" name="product" required>
-              <option value="" selected disabled>Select a community</option>
+          <div class="section">
+            <div class="input-group">
+                <label for="referee-product">Which community are you interested in?</label>
+                <div class="select">
+                    <select id="referee-product" name="product" required>
+                      <option value="" selected disabled>Select a community</option>
 
-              @foreach ($products as $product)
-                <option value="{{ $product }}">{{ $product }}</option>
-              @endforeach
-            </select>
+                      @foreach ($products as $product)
+                        <option value="{{ $product }}">{{ $product }}</option>
+                      @endforeach
+                    </select>
+                </div>
+            </div>
           </div>
         @endif
 
