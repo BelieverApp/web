@@ -79735,6 +79735,8 @@ __webpack_require__(/*! ./believer/dataTables.bs4.js */ "./resources/js/believer
 __webpack_require__(/*! ./believer/dataTables.js */ "./resources/js/believer/dataTables.js"); // clients
 
 
+__webpack_require__(/*! ./believer/indexClient.js */ "./resources/js/believer/indexClient.js");
+
 __webpack_require__(/*! ./believer/deleteClient.js */ "./resources/js/believer/deleteClient.js");
 
 __webpack_require__(/*! ./believer/editClient.js */ "./resources/js/believer/editClient.js");
@@ -80450,6 +80452,87 @@ $(document).on("click", ".editReward", function () {
   });
   return false;
 });
+
+/***/ }),
+
+/***/ "./resources/js/believer/indexClient.js":
+/*!**********************************************!*\
+  !*** ./resources/js/believer/indexClient.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function () {
+  var filterDateStart = new moment();
+  var filterDateEnd = new moment();
+
+  var updateReferralData = function updateReferralData() {
+    var rangeOption = $('#filter-date-range').val();
+    var product = $('#filter-area').val();
+    var startRange = filterDateStart;
+    var endRange = filterDateEnd;
+    var rangeFunc = {
+      "last_week": function last_week() {
+        startRange = moment().startOf('day').subtract(7, 'days');
+        endRange = moment().endOf('day');
+      },
+      "last_month": function last_month() {
+        startRange = moment().startOf('day').subtract(1, 'months');
+        endRange = moment().endOf('day');
+      },
+      "last_year": function last_year() {
+        startRange = moment().startOf('day').subtract(1, 'years');
+        endRange = moment().endOf('day');
+      }
+    }[rangeOption];
+
+    if (rangeFunc) {
+      rangeFunc();
+    }
+
+    startRange = startRange.unix();
+    endRange = endRange.unix();
+    $.ajax({
+      url: "/client/referralData?start=".concat(startRange, "&end=").concat(endRange, "&product=").concat(product),
+      type: 'GET',
+      dataType: 'json',
+      success: function success(result) {
+        $('#unique-visits').text(result.uniqueVisits);
+        $('#active-referrers').text(result.activeReferrers);
+        $('#influential-referrers').text(result.influentialReferrers);
+        $('#successful-referrers').text(result.successfulReferrers);
+        $('#referred-visitors').text(result.referredVisitors);
+        $('#referred-leads').text(result.referredLeads);
+        $('#referred-sales').text(result.referredSales);
+        $('#online-referral-rate').text(result.onlineReferralRate);
+        $('#lead-conversion-rate').text(result.leadConversionRate);
+        $('#sales-stor').text(result.salesConversionRateSTOR);
+        $('#sales-slc').text(result.salesConversionRateSLC);
+      }
+    });
+  };
+
+  $('#filter-date-range').change(function (event) {
+    var display = event.target.value === 'custom' ? 'block' : 'none';
+    $('#filter-date-range-input-container').css('display', display);
+    updateReferralData();
+  });
+  $('#filter-area').change(function () {
+    return updateReferralData();
+  });
+  $('#filter-date-range-input').daterangepicker({
+    drops: 'down',
+    opens: 'right',
+    startDate: new Date(+filterDateStart),
+    endDate: new Date(+filterDateEnd),
+    maxDate: new Date()
+  }, function (start, end, label) {
+    filterDateStart = start.startOf('day');
+    filterDateEnd = end.endOf('day');
+    updateReferralData();
+  });
+  updateReferralData();
+})();
 
 /***/ }),
 

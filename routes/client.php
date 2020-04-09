@@ -37,3 +37,6 @@ Route::resource('/client/reports', 'Client\ReportController');
 //user nav
 Route::resource('/client/settings', 'Client\SettingsController');
 Route::resource('/client/profile', 'Client\ProfileController');
+
+// referral data
+Route::get('/client/referralData', 'Client\DashboardController@get');

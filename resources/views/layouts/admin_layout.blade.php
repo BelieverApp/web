@@ -48,6 +48,7 @@
     @yield('content')
   </main>
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script src="/js/app.js"></script>
   <script>
     (() => {

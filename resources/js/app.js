@@ -102,6 +102,7 @@ $( "#message-form" ).submit(function( event ) {
 require('./believer/dataTables.bs4.js');
 require('./believer/dataTables.js');
 // clients
+require('./believer/indexClient.js');
 require('./believer/deleteClient.js');
 require('./believer/editClient.js');
 require('./believer/editMission.js');

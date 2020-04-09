@@ -172,11 +172,13 @@ class ReferralController extends Controller
             abort(404);
         }
 
-        $result = DB::select('select referee_url from referrers join brands on referrers.brand_id = brands.id where url_id = ?', [$id]);
+        $result = DB::select('select r.id as referrer_id, referee_url from referrers as r join brands on r.brand_id = brands.id where url_id = ?', [$id]);
 
         if (!isset($result[0])) {
             abort(404);
         }
+
+        DB::insert('insert into referrer_clicks(referrer_id) values(?) ', [$result[0]->referrer_id]);
 
         return redirect($result[0]->referee_url . '?id=' . $id);
     }
