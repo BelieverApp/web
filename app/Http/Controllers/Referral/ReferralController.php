@@ -144,7 +144,7 @@ class ReferralController extends Controller
             'product' => $request->input('product'),
         ]);
 
-        $result = DB::select('select r.id, referral_css_url from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$request->input('id')]);
+        $result = DB::select('select r.id, referral_css_url, referral_email_recepient, from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$request->input('id')]);
 
         if (!isset($result[0])) {
             return 'Referrer not found, is your referral link correct?';
@@ -153,9 +153,27 @@ class ReferralController extends Controller
         $css = $result[0]->referral_css_url ?? null;
         $referrerId = $result[0]->id;
 
-        \Log::info($result);
+        $id = DB::table('external_referrals')->insertGetId([
+            'referrer_id' => $referrerId,
+            'data' => $data,
+        ]);
 
-        DB::insert('insert into external_referrals(referrer_id, data) values(?, ?)', [$referrerId, $data]);
+        if (isset($result[0]->referral_email_recepient)) {
+            try {
+                $subject = 'New Referral: ' . $request->input('firstName') . ' ' . $request->input('lastName');
+                $message = env('APP_URL') . '/admin/referrals/' . $id;
+
+                Mail::raw($message, function($message)
+                {
+                    $message->subject($subject);
+                    $message->from('no-reply@believer.io', 'Believer');
+                    $message->to($result[0]->referral_email_recepient);
+                });
+
+                \Log::info('New Referral ') . $request->input('firstName') . ' ' . $request->input('lastName') . ' to ' . $result[0]->referral_email_recepient;
+            } catch () {
+            }
+        }
 
         return view('referral.referee_done')
             ->with('externalCss', $request->input('externalCss') ?? null)

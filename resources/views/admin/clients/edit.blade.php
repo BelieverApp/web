@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<form method="POST" enctype="multipart/form-data" action="/admin/updateClient" class="form-horizontal">
+<form class="form-horizontal">
     @csrf
     <input type="hidden" name="client_id" id="client_id" value="{{ $client->id }}" />
 
@@ -134,6 +134,13 @@
                                 <input type="text" class="product-field form-control" placeholder="Product Name">
                                 <button class="product-delete btn btn-small btn-danger" type="button"><i class="fa fa-close"></i></button>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Email Referral Notifications to Recipient</label>
+                        <div class="col-sm-10">
+                            <input type="email" id="referral_notify_email" name="referral_notify_email" class="form-control" value="{{ $client->referral_notify_email }}" placeholder="Referral Notification Recipient Email">
                         </div>
                     </div>
 

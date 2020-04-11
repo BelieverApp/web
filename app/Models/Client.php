@@ -29,6 +29,7 @@ class Client extends Model
         'referee_url',
         'referral_css_url',
         'products',
+        'referral_notify_email',
     ];
 
     public function managers()
@@ -85,6 +86,7 @@ class Client extends Model
                 'referee_url' => $request->referee_url,
                 'referral_css_url' => $request->referral_css_url,
                 'products' => $request->products,
+                'referral_notify_email' => $request->referral_notify_email,
             ];
 
             if (isset($logo2upload)) {
@@ -129,6 +131,7 @@ class Client extends Model
             'referee_url' => $request->referee_url,
             'referral_css_url' => $request->referral_css_url,
             'products' => $request->products,
+            'referral_notify_email' => $request->referral_notify_email,
         ];
 
         if( isset($logo1) || isset($logo2) || isset($banner) ){

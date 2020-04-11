@@ -25,6 +25,7 @@ $(document).on("click", ".editClient", () => {
   var phone2 = $("#phone2").val();
   var refereeUrl = $("#referee_url").val();
   var referral_css_url = $("#referral_css_url").val();
+  var referral_notify_email = $("#referral_notify_email").val();
   var products = [];
   $('#product-group .product-field').each((i, e) => products.push($(e).val()));
 
@@ -46,6 +47,7 @@ $(document).on("click", ".editClient", () => {
   formData.append('phone2', phone2);
   formData.append('referee_url', refereeUrl);
   formData.append('referral_css_url', referral_css_url);
+  formData.append('referral_notify_email', referral_notify_email);
   formData.append('products', JSON.stringify(products));
 
   if (typeof logo !== 'undefined'){
