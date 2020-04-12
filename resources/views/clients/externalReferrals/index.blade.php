@@ -30,7 +30,7 @@
                     <td>{{ $e['product'] ?? 'None' }}</td>
                     <td>{{ $e['created_at'] }}</td>
                     <td>{{ $e['referrerName'] }}</td>
-                    <td><input class="req toggleClosed" type="checkbox" <?php if ($e['closed']) echo 'checked'?> data-referral-id="{{ $e['id'] }}"></input></td>
+                    <td><input class="req toggleClosedClient" type="checkbox" <?php if ($e['closed']) echo 'checked'?> data-referral-id="{{ $e['id'] }}"></input></td>
                 </tr>
 
                 @endforeach

@@ -9,6 +9,3 @@ Route::get('/referral/{id}', 'Referral\ReferralController@referralRedirect');
 //temp routes
 Route::get('/morrison-share', 'Referral\ReferralController@exampleGenLink');
 Route::get('/morrison-referee', 'Referral\ReferralController@exampleReferee');
-
-Route::get('/referrers', 'Referral\ReferralController@referrers');
-Route::get('/referrals', 'Referral\ReferralController@referrals');

@@ -47,11 +47,13 @@ class ReferralsController extends Controller
     public function put(Request $request, $id)
     {
         $userId = Auth::user()->id;
-        $result = DB::select('select id from
-            client_user as cu join brands as b on cu.client_id = b.id
-            join referrers as r on r.brand_id = b.id
-            join external_referrals as er on er.referrer_id = r.id
-            where er.id = ? and cu.user_id = ?', [$id, $userId]);
+        $results = DB::select('select er.id from
+            users as u
+                join client_user as cu on cu.user_id = u.id
+                join brands as b on cu.client_id = b.id
+                join referrers as r on r.brand_id = b.id
+                join external_referrals as er on er.referrer_id = r.id
+            where er.id = ? and u.id = ?', [$id, $userId]);
 
         if (!isset($results[0])) {
             abort(403);

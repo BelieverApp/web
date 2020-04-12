@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Models\UserGroup;
 use Validator;
+use Ramsey\Uuid\Uuid;
 
 class ReferralController extends Controller
 {
@@ -39,10 +40,29 @@ class ReferralController extends Controller
 
         $css = $result[0]->referral_css_url ?? null;
 
-        return view('referral.gen_link')
-          ->with('externalCss', $externalCSS)
-          ->with('cssUrl', $css)
-          ->with('partyId', $partyId);
+        $response = response()->view('referral.gen_link', [
+          'externalCss' => $externalCSS,
+          'cssUrl' => $css,
+          'partyId' => $partyId,
+        ]);
+
+        $cookieName = 'tracking_id';
+        $cookie = $request->cookie($cookieName);
+
+        if (!isset($cookie)) {
+            $id = DB::table('visitors')->insertGetId([
+                'brand_id' => $partyId,
+            ]);
+            $cookie = $id;
+            $response = $response->cookie($cookieName, $id);
+        }
+
+        DB::table('visits')->insertGetId([
+            'visitor_id' => $cookie,
+            'page' => 'referrer',
+        ]);
+
+        return $response;
     }
 
     public function generateLink(Request $request)
@@ -109,7 +129,7 @@ class ReferralController extends Controller
             return $idErrorMessage;
         }
 
-        $result = DB::select('select r.id, referral_css_url, products from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$params['id']]);
+        $result = DB::select('select r.id, referral_css_url, products, b.id as brand_id from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$params['id']]);
 
         if (!isset($result[0])) {
             return $idErrorMessage;
@@ -117,12 +137,32 @@ class ReferralController extends Controller
 
         $products = json_decode($result[0]->products, true) ?? [];
         $css = $result[0]->referral_css_url ?? null;
+        $brandId = $result[0]->brand_id;
 
-        return view('referral.referee')
-          ->with('id', $params['id'])
-          ->with('externalCss', $params['css'] ?? null)
-          ->with('cssUrl', $css ?? null)
-          ->with('products', $products);
+        $response = response()->view('referral.referee', [
+          'id' => $params['id'],
+          'externalCss' => $params['css'] ?? null,
+          'cssUrl' => $css ?? null,
+          'products' => $products,
+        ]);
+
+        $cookieName = 'tracking_id';
+        $cookie = $request->cookie($cookieName);
+
+        if (!isset($cookie)) {
+            $id = DB::table('visitors')->insertGetId([
+                'brand_id' => $brandId,
+            ]);
+            $cookie = $id;
+            $response = $response->cookie($cookieName, $id);
+        }
+
+        DB::table('visits')->insertGetId([
+            'visitor_id' => $cookie,
+            'page' => 'referree',
+        ]);
+
+        return $response;
     }
 
     public function refereeData(Request $request)
@@ -144,7 +184,7 @@ class ReferralController extends Controller
             'product' => $request->input('product'),
         ]);
 
-        $result = DB::select('select r.id, referral_css_url, referral_email_recepient, from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$request->input('id')]);
+        $result = DB::select('select r.id, referral_css_url, referral_notify_email from referrers as r join brands as b on r.brand_id = b.id where url_id = ?', [$request->input('id')]);
 
         if (!isset($result[0])) {
             return 'Referrer not found, is your referral link correct?';
@@ -158,20 +198,19 @@ class ReferralController extends Controller
             'data' => $data,
         ]);
 
-        if (isset($result[0]->referral_email_recepient)) {
+        if (isset($result[0]->referral_notify_email)) {
             try {
                 $subject = 'New Referral: ' . $request->input('firstName') . ' ' . $request->input('lastName');
                 $message = env('APP_URL') . '/admin/referrals/' . $id;
 
-                Mail::raw($message, function($message)
-                {
+                \Mail::raw($message, function($message) use ($subject, $result) {
                     $message->subject($subject);
                     $message->from('no-reply@believer.io', 'Believer');
-                    $message->to($result[0]->referral_email_recepient);
+                    $message->to($result[0]->referral_notify_email);
                 });
 
-                \Log::info('New Referral ') . $request->input('firstName') . ' ' . $request->input('lastName') . ' to ' . $result[0]->referral_email_recepient;
-            } catch () {
+                \Log::info('New Referral ') . $request->input('firstName') . ' ' . $request->input('lastName') . ' to ' . $result[0]->referral_notify_email;
+            } catch (\Exception $e) {
             }
         }
 
@@ -212,17 +251,5 @@ class ReferralController extends Controller
     public function exampleReferee(Request $request)
     {
         return view('referral.morrison_referee');
-    }
-
-    public function referrers(Request $request)
-    {
-        $referrers = DB::select('select * from referrers');
-        return $referrers;
-    }
-
-    public function referrals(Request $request)
-    {
-        $referrals = DB::select('select * from external_referrals');
-        return $referrals;
     }
 }

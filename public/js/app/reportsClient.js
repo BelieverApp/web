@@ -31,7 +31,7 @@
     endRange = endRange.unix();
 
     $.ajax({
-      url: `/client/referralData?start=${startRange}&end=${endRange}&product=${product}`,
+      url: `/client/reports/referralData?start=${startRange}&end=${endRange}&product=${product}`,
       type: 'GET',
       dataType: 'json',
       success: function(result) {

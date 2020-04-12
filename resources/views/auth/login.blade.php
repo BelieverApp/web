@@ -75,6 +75,7 @@
   </div>
 
     <!-- General JS Scripts -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>

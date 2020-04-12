@@ -102,7 +102,6 @@ $( "#message-form" ).submit(function( event ) {
 require('./believer/dataTables.bs4.js');
 require('./believer/dataTables.js');
 // clients
-require('./believer/indexClient.js');
 require('./believer/deleteClient.js');
 require('./believer/editClient.js');
 require('./believer/editMission.js');
@@ -126,3 +125,4 @@ require('./believer/createManagerAccount.js');
 require('./believer/deleteManagerAccount.js');
 // referrals
 require('./believer/referrals.js');
+require('./believer/referralsClient.js');

@@ -32,11 +32,11 @@ Route::get('/client/referrals/{id}', 'Client\ReferralsController@detail');
 Route::put('/client/referrals/{id}', 'Client\ReferralsController@put');
 
 //reporting
-Route::resource('/client/reports', 'Client\ReportController');
+Route::get('/client/reports', 'Client\ReportController@index');
+Route::get('/client/reports/referralData', 'Client\ReportController@get');
 
 //user nav
 Route::resource('/client/settings', 'Client\SettingsController');
 Route::resource('/client/profile', 'Client\ProfileController');
 
 // referral data
-Route::get('/client/referralData', 'Client\DashboardController@get');

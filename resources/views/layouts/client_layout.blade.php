@@ -51,7 +51,7 @@
     @yield('content')
   </main>
   <script src="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/js/medium-editor.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script src="/js/app.js"></script>
+    @yield('scripts')
 </body>
 
