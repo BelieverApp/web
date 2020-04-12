@@ -215,7 +215,7 @@ class ReferralController extends Controller
         }
 
         return view('referral.referee_done')
-            ->with('externalCss', $request->input('externalCss') ?? null)
+            ->with('externalCss', $request->input('css') ?? null)
             ->with('cssUrl', $css);
     }
 
@@ -238,18 +238,5 @@ class ReferralController extends Controller
         DB::insert('insert into referrer_clicks(referrer_id) values(?) ', [$result[0]->referrer_id]);
 
         return redirect($result[0]->referee_url . '?id=' . $id);
-    }
-
-
-    // temporary routes
-
-    public function exampleGenLink(Request $request)
-    {
-        return view('referral.morrison_gen');
-    }
-
-    public function exampleReferee(Request $request)
-    {
-        return view('referral.morrison_referee');
     }
 }
