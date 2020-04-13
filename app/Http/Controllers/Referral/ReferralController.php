@@ -239,4 +239,9 @@ class ReferralController extends Controller
 
         return redirect($result[0]->referee_url . '?id=' . $id);
     }
+
+    public function maillinktest(Request $request)
+    {
+        return view('referral.maillinktest');
+    }
 }

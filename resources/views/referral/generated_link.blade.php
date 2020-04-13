@@ -35,9 +35,6 @@ if(isset($cssUrl)) {
             <a class="link-share-twitter" href="https://twitter.com/intent/tweet?tw_p=tweetbutton&url={{ $linkEncoded }}" target="_blank"><i class="share-icon-twitter"></i>tweet</a>
         </div>
         <div class="link-share">
-            <a class="link-share-messenger" href="fb-messenger://share/?link={{ $linkEncoded }}&app_id=123456789"><i class="share-icon-messenger"></i>message</a>
-        </div>
-        <div class="link-share">
             <a class="link-share-email" href="mailto:?subject={{ $emailSubject }}&body={{ $emailBody }}"><i class="share-icon-email"></i>email</a>
         </div>
       </div>
