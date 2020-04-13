@@ -98,7 +98,7 @@ class ReferralController extends Controller
         $refEndpoint = env('APP_URL') . '/referral/';
         $refLink = $refEndpoint . $urlId;
         $refLinkEncoded = urlencode($refLink);
-        $emailSubject = '';
+        //$emailSubject = '';
         $emailBody = rawurlencode('Your referral link: ' . $refLink);
 
         return view('referral.generated_link')
@@ -106,7 +106,7 @@ class ReferralController extends Controller
           ->with('link', $refLink)
           ->with('linkEncoded', $refLinkEncoded)
           ->with('cssUrl', $css)
-          ->with('emailSubject', $emailSubject)
+          //->with('emailSubject', $emailSubject)
           ->with('emailBody', $emailBody);
     }
 
