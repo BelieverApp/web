@@ -240,8 +240,27 @@ class ReferralController extends Controller
         return redirect($result[0]->referee_url . '?id=' . $id);
     }
 
-    public function maillinktest(Request $request)
+    public function devGenLinkFrame(Request $request)
     {
-        return view('referral.maillinktest');
+        return view('referral.dev_gen_link')
+            ->with('externalCss', $request->input('css') ?? null);
+    }
+
+    public function devGenerateLink(Request $request)
+    {
+        return view('referral.dev_generated_link')
+            ->with('externalCss', $request->input('css') ?? null);
+    }
+
+    public function devRefereeFrame(Request $request)
+    {
+        return view('referral.dev_referee')
+            ->with('externalCss', $request->input('css') ?? null);
+    }
+
+    public function devRefereeDone(Request $request)
+    {
+        return view('referral.dev_referee_done')
+            ->with('externalCss', $request->input('css') ?? null);
     }
 }
