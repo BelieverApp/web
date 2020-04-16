@@ -27,7 +27,7 @@ if(isset($externalCss)) {
           </div>
         </div>
 
-        <button class="generate-link-submit" type="submit">Generate Link</button>
+        <button class="generate-link-submit" type="submit"><i class="generate-link-icon"></i>Get Your Link</button>
       </form>
     </div>
   </body>

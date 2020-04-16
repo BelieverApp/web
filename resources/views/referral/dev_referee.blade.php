@@ -55,7 +55,7 @@ if(isset($externalCss)) {
           </div>
 
           <div class="input-group">
-            <button class="referee-form-submit" type="submit">Submit</button>
+            <button class="referee-form-submit" type="submit"><i class="referee-form-submit-icon"></i>Submit</button>
           </div>
         </div>
 

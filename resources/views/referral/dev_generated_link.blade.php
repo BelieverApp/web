@@ -14,8 +14,9 @@ if(isset($externalCss)) {
         Send them this personalized link to help them on their new home journey.
       </div>
 
-      <div class="link-copy-group">
-        <input class="link-field" value="" readonly></input>
+      <div class="link-copy-group input-group">
+        <label for="link-field">Your Share Link:</label>
+        <input id="link-field" class="link-field" value="" readonly></input>
       </div>
 
       <div class="link-share-group">
