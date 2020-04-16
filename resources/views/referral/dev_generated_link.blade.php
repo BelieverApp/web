@@ -21,7 +21,7 @@ if(isset($externalCss)) {
 
       <div class="link-share-group">
         <div class="link-share">
-          <a class="copy-link-action"><i class="copy-link-action-icon"></i>copy link</a>
+          <a class="copy-link-action" href=""><i class="copy-link-action-icon"></i>copy link</a>
         </div>
 
         <div class="link-share">
