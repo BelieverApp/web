@@ -15,13 +15,7 @@ class ReferralController extends Controller
     public function genLinkFrame(Request $request)
     {
         $params = $request->all();
-
-        if (isset($params['css'])) {
-            $params['css'] = trim($params['css'], ' \'');
-        }
-
         $validator = Validator::make($params, [
-            'css' => 'url',
             'partyId' => 'required|numeric',
         ]);
 
@@ -30,7 +24,6 @@ class ReferralController extends Controller
         }
 
         $partyId = $params['partyId'];
-        $externalCSS = $params['css'] ?? null;
 
         $result = DB::select('select referral_css_url from brands where id = ?', [$partyId]);
 
@@ -41,7 +34,6 @@ class ReferralController extends Controller
         $css = $result[0]->referral_css_url ?? null;
 
         $response = response()->view('referral.gen_link', [
-          'externalCss' => $externalCSS,
           'cssUrl' => $css,
           'partyId' => $partyId,
         ]);
@@ -102,7 +94,6 @@ class ReferralController extends Controller
         $emailBody = rawurlencode('Your referral link: ' . $refLink);
 
         return view('referral.generated_link')
-          ->with('externalCss', $request->input('externalCss') ?? null)
           ->with('link', $refLink)
           ->with('linkEncoded', $refLinkEncoded)
           ->with('cssUrl', $css)
@@ -141,7 +132,6 @@ class ReferralController extends Controller
 
         $response = response()->view('referral.referee', [
           'id' => $params['id'],
-          'externalCss' => $params['css'] ?? null,
           'cssUrl' => $css ?? null,
           'products' => $products,
         ]);
@@ -215,7 +205,6 @@ class ReferralController extends Controller
         }
 
         return view('referral.referee_done')
-            ->with('externalCss', $request->input('css') ?? null)
             ->with('cssUrl', $css);
     }
 

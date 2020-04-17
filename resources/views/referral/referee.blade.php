@@ -1,14 +1,6 @@
 <html>
   <head>
 <?php
-if(isset($externalCss)) {
-?>
-    <link rel="stylesheet" href={{ $externalCss }}>
-<?php
-}
-?>
-
-<?php
 if(isset($cssUrl)) {
 ?>
     <link rel="stylesheet" href="{{ $cssUrl }}">
@@ -18,9 +10,12 @@ if(isset($cssUrl)) {
   </head>
   <body>
     <div class="referee-page">
+      <div class="instructions">
+        To complete your referral registration, fill out the form below. One of our area managers will be in touch to schedule your complimentary new home consultation.
+      </div>
+
       <form class="referee-form" action="referee-data" method="post" target="_self">
         <input name="id" type="hidden" value="{{ $id }}">
-        <input name="externalCss" type="hidden" value="{{ $externalCss ?? null }}">
 
         <div class="section referee-name">
           <div class="input-group">
@@ -44,30 +39,33 @@ if(isset($cssUrl)) {
           </div>
         </div>
 
-        @if (count($products) > 0)
-          <div class="section">
+<!--
+        <div class="section">
+          additional sections here
+        </div>
+-->
+
+        <div class="section last">
+          @if (count($products) > 0)
             <div class="input-group">
                 <label for="referee-product">Which community are you interested in?</label>
                 <div class="select">
                     <select id="referee-product" name="product" required>
                       <option value="" selected disabled>Select a community</option>
-
+  
                       @foreach ($products as $product)
                         <option value="{{ $product }}">{{ $product }}</option>
                       @endforeach
                     </select>
                 </div>
             </div>
+          @endif
+
+          <div class="input-group">
+            <button class="referee-form-submit" type="submit"><i class="referee-form-submit-icon"></i>Submit</button>
           </div>
-        @endif
-
-<!--
-        <div class="section">
-          additional sections like so
         </div>
--->
 
-        <button class="referee-form-submit" type="submit">Submit</button>
       </form>
     </div>
   </body>

@@ -1,14 +1,6 @@
 <html>
   <head>
 <?php
-if(isset($externalCss)) {
-?>
-    <link rel="stylesheet" href={{ $externalCss }}>
-<?php
-}
-?>
-
-<?php
 if(isset($cssUrl)) {
 ?>
     <link rel="stylesheet" href="{{ $cssUrl }}">
@@ -18,9 +10,12 @@ if(isset($cssUrl)) {
   </head>
   <body>
     <div class="generate-link-page">
+      <div class="instructions">
+        Enter your name and email to get your personal referral link. Then use it to invite your friends to book a new home consultation
+      </div>
+
       <form class="generate-link-form" action="generate-link" method="post" target="_self">
         <input name="partyId" type="hidden" value="{{ $partyId }}">
-        <input name="externalCss" type="hidden" value="{{ $externalCss ?? null }}">
 
         <div class="referrer-fields">
           <div class="input-group">
@@ -34,7 +29,7 @@ if(isset($cssUrl)) {
           </div>
         </div>
 
-        <button class="generate-link-submit" type="submit">Generate Link</button>
+        <button class="generate-link-submit" type="submit"><i class="generate-link-icon"></i>Get Your Link</button>
       </form>
     </div>
   </body>

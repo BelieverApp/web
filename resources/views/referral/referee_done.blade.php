@@ -1,14 +1,6 @@
 <html>
   <head>
 <?php
-if(isset($externalCss)) {
-?>
-    <link rel="stylesheet" href={{ $externalCss }}>
-<?php
-}
-?>
-
-<?php
 if(isset($cssUrl)) {
 ?>
     <link rel="stylesheet" href="{{ $cssUrl }}">
