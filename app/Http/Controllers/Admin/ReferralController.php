@@ -33,6 +33,15 @@ class ReferralController extends Controller
             ->with('entries', $entries);
     }
 
+    public function referrersActive()
+    {
+        $query = 'select r.name as name, r.email as email, r.url_id as refCode, r.created_at as created, b.name as brand from referrers as r join brands as b on r.brand_id = b.id';
+        $entries = DB::select($query);
+
+        return view('admin.referrals.referrers-active')
+            ->with('entries', $entries);
+    }
+
     public function put(Request $request, $id)
     {
         $result = DB::update('update external_referrals set closed = ? where id = ?', [$request->closed === 'true', $id]);

@@ -4,7 +4,10 @@
 @section('subnav')
 <li class="nav-item">
     <h2>Create a Manager Account</h2>
-    <p>Here is where you will be able to associate a manager (client) account with a brand. Please make sure that you have first created the new brand. That can be done <a href="/admin/clients/create">here</a>.
+    <p>Here is where you will be able to associate a manager (client) account with a brand. Please make sure that you have first created the new brand. That can be done <a href="/admin/clients/create">here</a>.</p>
+    <p>
+        If a user with the same email exists then a new account will not be made and the existing user will be made the manager.
+    </p>
 </li>
 @endsection
 

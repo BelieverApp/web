@@ -46,20 +46,25 @@ class ClientUserController extends Controller
     {
         $pass = bcrypt($request->password);
 
-        $user = [
-            "name" => $request->first_name . " " . $request->last_name,
-            "first" => $request->first_name,
-            "last" => $request->last_name,
-            "email" => $request->email,
-            "password" => $pass,
-            "group_id" => 2,
-        ];
-        $newUser = User::create($user);
-        \Log::info($newUser);
+        $users = User::where('email', $request->email)->get();
+        $user = $users[0];
+
+        if (!isset($user)) {
+            $userData = [
+                "name" => $request->first_name . " " . $request->last_name,
+                "first" => $request->first_name,
+                "last" => $request->last_name,
+                "email" => $request->email,
+                "password" => $pass,
+                "group_id" => 2,
+            ];
+            $user = User::create($userData);
+            \Log::info($user);
+        }
 
         $manager = [
             "client_id" => $request->brand_id,
-            "user_id" => $newUser->id,
+            "user_id" => $user->id,
         ];
         $newManager = ClientUser::create($manager);
         \Log::info($newManager);

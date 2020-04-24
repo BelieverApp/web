@@ -6,6 +6,10 @@
 <div class="row">
     <div class="col-12">
         <h2>Referrals</h2>
+        <p>
+          <a><button class="btn btn-primary">Referrals</button></a>
+          <a href="/admin/referrers-active"><button class="btn btn-secondary">Active Referrers</button></a>
+        </p>
         <div class="card">
             <div class="card-body p-10">
             <div class="table-responsive dataTables_wrapper container-fluid dt-bootstrap4 no-footer">

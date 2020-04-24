@@ -91,7 +91,10 @@ class ReferralController extends Controller
         $refLink = $refEndpoint . $urlId;
         $refLinkEncoded = urlencode($refLink);
         //$emailSubject = '';
-        $emailBody = rawurlencode('Your referral link: ' . $refLink);
+        $emailBody = rawurlencode("Hi there! I thought you might be interested in exploring the idea of building with Morrison Homes. Complete the referral process to get your $1,000 Selection Studio credit.
+
+Here's the link:
+" . $refLink);
 
         return view('referral.generated_link')
           ->with('link', $refLink)

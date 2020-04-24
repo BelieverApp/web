@@ -11,7 +11,7 @@ if(isset($cssUrl)) {
   <body>
     <div class="generate-link-page">
       <div class="instructions">
-        Enter your name and email to get your personal referral link. Then use it to invite your friends to book a new home consultation
+        Enter your name and email to get your personal referral link. Then use it to invite your friends and family to explore building a new home with Morrison.
       </div>
 
       <form class="generate-link-form" action="generate-link" method="post" target="_self">

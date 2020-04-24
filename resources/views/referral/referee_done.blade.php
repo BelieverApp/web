@@ -11,7 +11,7 @@ if(isset($cssUrl)) {
   <body>
     <div class="referee-submitted-page">
       <div class="submitted-message">
-        Your request has been submitted and we will be in touch shortly.
+        One of our area managers will be in touch to schedule a call or showhome visit.
       </div>
     </div>
   </body>

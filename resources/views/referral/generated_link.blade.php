@@ -40,13 +40,15 @@ if(isset($cssUrl)) {
   </body>
 
   <script>
-    function copy() {
-      let copyText = document.querySelector(".link-page .link-field");
-      copyText.select();
+    function onCopy() {
+      let copyField = document.querySelector(".link-page .link-field");
+      copyField.select();
       document.execCommand("copy");
+
+      copyField.classList.add("link-field-copied");
     }
 
-    document.querySelector(".link-page .link-field").addEventListener("click", copy);
-    document.querySelector(".link-page .copy-link-action").addEventListener("click", copy);
+    document.querySelector(".link-page .link-field").addEventListener("click", onCopy);
+    document.querySelector(".link-page .copy-link-action").addEventListener("click", onCopy);
   </script>
 </html>
