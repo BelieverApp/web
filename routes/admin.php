@@ -34,3 +34,5 @@ Route::get('/admin/referrals/{id}', 'Admin\ReferralController@detail');
 Route::put('/admin/referrals/{id}', 'Admin\ReferralController@put');
 
 Route::get('/admin/referrers-active', 'Admin\ReferralController@referrersActive');
+Route::get('/admin/referrers-active/{id}', 'Admin\ReferralController@referrersActiveDetail');
+Route::put('/admin/referrers-active/{id}', 'Admin\ReferralController@putReferrersActiveDetail');

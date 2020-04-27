@@ -126,3 +126,5 @@ require('./believer/deleteManagerAccount.js');
 // referrals
 require('./believer/referrals.js');
 require('./believer/referralsClient.js');
+require('./believer/referralsReferrerDetail.js');
+require('./believer/referralsClientReferrerDetail.js');

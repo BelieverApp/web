@@ -1,5 +1,5 @@
-@extends('layouts.admin_layout')
-@include('admin.includes.nav', ['section' => 'referrals'])
+@extends('layouts.client_layout')
+@include('clients.includes.nav', ['section' => 'referrals'])
 
 @section('content')
 
@@ -7,7 +7,7 @@
     <div class="col-12">
         <h2>Active Referrers</h2>
         <p>
-          <a href="/admin/referrals"><button class="btn btn-secondary">Referrals</button></a>
+          <a href="/client/referrals"><button class="btn btn-secondary">Referrals</button></a>
           <a><button class="btn btn-primary">Active Referrers</button></a>
         </p>
         <div class="card">
@@ -27,7 +27,7 @@
                 <tbody>
                 @foreach($entries as $e)
                 <tr>
-                    <td><a href="{{'/admin/referrers-active/' . $e->id}}">{{ $e->name }}</a></td>
+                    <td><a href="{{'/client/referrers-active/' . $e->id}}">{{ $e->name }}</a></td>
                     <td>{{ $e->email }}</td>
                     <td>{{ $e->refCode }}</td>
                     <td>{{ $e->affiliation === 0 ? 'Unassigned' : ($e->affiliation === 1 ? 'Customer' : 'Non-customer') }}</td>

@@ -35,7 +35,7 @@ class ReferralController extends Controller
 
     public function referrersActive()
     {
-        $query = 'select r.name as name, r.email as email, r.url_id as refCode, r.created_at as created, b.name as brand from referrers as r join brands as b on r.brand_id = b.id';
+        $query = 'select r.id, r.name as name, r.email as email, r.url_id as refCode, r.created_at as created, b.name as brand, r.customer_affiliation as affiliation from referrers as r join brands as b on r.brand_id = b.id';
         $entries = DB::select($query);
 
         return view('admin.referrals.referrers-active')
@@ -63,5 +63,24 @@ class ReferralController extends Controller
 
         return view('admin.referrals.detail')
             ->with('data', $data);
+    }
+
+    public function referrersActiveDetail(Request $request, $id)
+    {
+        $query = 'select r.id, r.name as name, r.email as email, r.url_id as refCode, r.created_at as created, b.name as brand, r.customer_affiliation as customerAffiliation from referrers as r join brands as b on r.brand_id = b.id and r.id = ?';
+        $results = DB::select($query, [$id]);
+
+        if (!isset($results[0])) {
+            abort(404);
+        }
+
+        return view('admin.referrals.referrers-active-detail')
+            ->with('data', $results[0]);
+    }
+
+    public function putReferrersActiveDetail(Request $request, $id)
+    {
+        $result = DB::update('update referrers set customer_affiliation = ? where id = ?', [$request->affiliation, $id]);
+        return $result;
     }
 }

@@ -31,6 +31,10 @@ Route::get('/client/referrals', 'Client\ReferralsController@index');
 Route::get('/client/referrals/{id}', 'Client\ReferralsController@detail');
 Route::put('/client/referrals/{id}', 'Client\ReferralsController@put');
 
+Route::get('/client/referrers-active', 'Client\ReferralsController@referrersActive');
+Route::get('/client/referrers-active/{id}', 'Client\ReferralsController@referrersActiveDetail');
+Route::put('/client/referrers-active/{id}', 'Client\ReferralsController@putReferrersActiveDetail');
+
 //reporting
 Route::get('/client/reports', 'Client\ReportController@index');
 Route::get('/client/reports/referralData', 'Client\ReportController@get');

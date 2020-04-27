@@ -84,4 +84,60 @@ class ReferralsController extends Controller
         return view('clients.externalReferrals.detail')
             ->with('data', $data);
     }
+
+    public function referrersActive()
+    {
+        $userId = Auth::user()->id;
+        $query = 'select
+            r.id,
+            r.name as name,
+            r.email as email,
+            r.url_id as refCode,
+            r.created_at as created,
+            b.name as brand,
+            r.customer_affiliation as affiliation
+          from
+            referrers as r
+            join brands as b on r.brand_id = b.id
+            join client_user as cu on cu.client_id = b.id
+            join users as u on u.id = cu.user_id
+          where
+            u.id = ?';
+        $entries = DB::select($query, [$userId]);
+
+        return view('clients.externalReferrals.referrers-active')
+            ->with('entries', $entries);
+    }
+
+    public function referrersActiveDetail(Request $request, $id)
+    {
+        $userId = Auth::user()->id;
+        $query = 'select r.id, r.name as name, r.email as email, r.url_id as refCode, r.created_at as created, b.name as brand, r.customer_affiliation as customerAffiliation from referrers as r join brands as b on r.brand_id = b.id and r.id = ?';
+        $results = DB::select($query, [$id]);
+
+        if (!isset($results[0])) {
+            abort(404);
+        }
+
+        return view('clients.externalReferrals.referrers-active-detail')
+            ->with('data', $results[0]);
+    }
+
+    public function putReferrersActiveDetail(Request $request, $id)
+    {
+        $userId = Auth::user()->id;
+        $result = DB::update('update
+          referrers as r
+            join brands as b on r.brand_id = b.id
+            join client_user as cu on b.id = cu.client_id
+            join users as u on cu.user_id = u.id
+          set
+            customer_affiliation = ?
+          where
+            r.id = ?
+            and u.id = ?',
+          [$request->affiliation, $id, $userId]);
+
+        return $result;
+    }
 }

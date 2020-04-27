@@ -11,7 +11,7 @@ if(isset($cssUrl)) {
   <body>
     <div class="referee-page">
       <div class="instructions">
-        To complete your referral registration, fill out the form below. One of our area managers will be in touch to schedule your complimentary new home consultation.
+        To complete your referral registration, fill out the form below. One of our area managers will be in touch to schedule a call or showhome visit.
       </div>
 
       <form class="referee-form" action="referee-data" method="post" target="_self">

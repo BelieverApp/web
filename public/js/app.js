@@ -79775,6 +79775,10 @@ __webpack_require__(/*! ./believer/referrals.js */ "./resources/js/believer/refe
 
 __webpack_require__(/*! ./believer/referralsClient.js */ "./resources/js/believer/referralsClient.js");
 
+__webpack_require__(/*! ./believer/referralsReferrerDetail.js */ "./resources/js/believer/referralsReferrerDetail.js");
+
+__webpack_require__(/*! ./believer/referralsClientReferrerDetail.js */ "./resources/js/believer/referralsClientReferrerDetail.js");
+
 /***/ }),
 
 /***/ "./resources/js/believer/createManagerAccount.js":
@@ -80528,6 +80532,48 @@ $(document).on("click", ".toggleClosedClient", function () {
     dataType: 'json',
     data: {
       closed: this.checked
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/believer/referralsClientReferrerDetail.js":
+/*!****************************************************************!*\
+  !*** ./resources/js/believer/referralsClientReferrerDetail.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on("change", ".client-detail-customer-affiliation", function () {
+  var referrerId = $(this).attr('data-referrer-id');
+  $.ajax({
+    url: "/client/referrers-active/".concat(referrerId),
+    type: 'PUT',
+    dataType: 'json',
+    data: {
+      affiliation: parseInt(this.value)
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/believer/referralsReferrerDetail.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/believer/referralsReferrerDetail.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on("change", ".detail-customer-affiliation", function () {
+  var referrerId = $(this).attr('data-referrer-id');
+  $.ajax({
+    url: "/admin/referrers-active/".concat(referrerId),
+    type: 'PUT',
+    dataType: 'json',
+    data: {
+      affiliation: parseInt(this.value)
     }
   });
 });
