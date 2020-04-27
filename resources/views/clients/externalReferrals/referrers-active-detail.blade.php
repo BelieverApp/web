@@ -59,9 +59,9 @@
                         <label class="col-sm-12 control-label">Customer Affiliation</label>
                         <div class="col-sm-10">
                             <select class="custom-select client-detail-customer-affiliation" name="customer-affiliation" id="customer-affiliation" data-referrer-id="{{$data->id}}">
-                                <option value="0" {{ $data->customerAffiliation == 1 ? 'selected="selected"' : '' }}>Unassigned</option>
-                                <option value="1" {{ $data->customerAffiliation == 2 ? 'selected="selected"' : '' }}>Customer</option>
-                                <option value="2" {{ $data->customerAffiliation == 3 ? 'selected="selected"' : '' }}>Non-Customer</option>
+                                <option value="0" {{ $data->customerAffiliation == 0 ? 'selected="selected"' : '' }}>Unassigned</option>
+                                <option value="1" {{ $data->customerAffiliation == 1 ? 'selected="selected"' : '' }}>Customer</option>
+                                <option value="2" {{ $data->customerAffiliation == 2 ? 'selected="selected"' : '' }}>Non-Customer</option>
                             </select>
                         </div>
                     </div>
