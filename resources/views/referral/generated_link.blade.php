@@ -21,7 +21,7 @@ if(isset($cssUrl)) {
 
       <div class="link-share-group">
         <div class="link-share">
-          <a class="copy-link-action"><i class="copy-link-action-icon"></i>copy link</a>
+          <a class="copy-link-action" href="javascript:void(0)"><i class="copy-link-action-icon"></i>copy link</a>
         </div>
 
         <div class="link-share">
@@ -45,7 +45,8 @@ if(isset($cssUrl)) {
       copyField.select();
       document.execCommand("copy");
 
-      copyField.classList.add("link-field-copied");
+      let copyAction = document.querySelector(".link-page .copy-link-action");
+      copyAction.classList.add("link-field-copied");
     }
 
     document.querySelector(".link-page .link-field").addEventListener("click", onCopy);
