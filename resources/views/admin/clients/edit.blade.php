@@ -144,6 +144,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">Show in App</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" id="api_available" name="api_available" class="form-control" {{ $client->api_available ? "checked" : "" }} placeholder="Referral Notification Recipient Email">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

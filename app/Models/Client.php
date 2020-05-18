@@ -30,6 +30,7 @@ class Client extends Model
         'referral_css_url',
         'products',
         'referral_notify_email',
+        'api_available',
     ];
 
     public function managers()
@@ -87,6 +88,7 @@ class Client extends Model
                 'referral_css_url' => $request->referral_css_url,
                 'products' => $request->products,
                 'referral_notify_email' => $request->referral_notify_email,
+                'api_available' => $request->api_available,
             ];
 
             if (isset($logo2upload)) {
@@ -111,6 +113,7 @@ class Client extends Model
         $logo1 = $request->logo;
         $logo2 = $request->logo2;
         $banner = $request->banner;
+        $apiAvailable = $request->api_available == 'true';
 
         $data = [
             'name' => $request->company_name,
@@ -132,6 +135,7 @@ class Client extends Model
             'referral_css_url' => $request->referral_css_url,
             'products' => $request->products,
             'referral_notify_email' => $request->referral_notify_email,
+            'api_available' => $apiAvailable,
         ];
 
         if( isset($logo1) || isset($logo2) || isset($banner) ){

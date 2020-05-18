@@ -42,7 +42,7 @@ class ClientController extends Controller
         // return Client::where('postal_code','like',$user_postal_code_fragment)
         //             ->whereNotIn('id', $followedClients)
         //             ->get();
-        $clients = Client::orderBy('name', 'asc')->get();
+        $clients = Client::where('api_available', true)->orderBy('name', 'asc')->get();
 
         foreach($clients as $c){
             $follow = Follower::where('user_id',$request->user_id)
@@ -69,7 +69,7 @@ class ClientController extends Controller
         //     "user_id": 123
         // }
         $clientIds = Follower::where('user_id',$request->user_id)->pluck('brand_id')->toArray();
-        return Client::whereIn('id', $clientIds)->get();
+        return Client::where('api_available', true)->whereIn('id', $clientIds)->get();
     }
 
 
@@ -84,7 +84,7 @@ class ClientController extends Controller
         // {
         //     "client_id": 10,
         // }
-        $client =  Client::find($request->client_id);
+        $client =  Client::where('api_available', true)->find($request->client_id);
         $client['stats'] = Stats::clientStats($client->id);
         return $client;
     }

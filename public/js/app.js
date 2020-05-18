@@ -80293,6 +80293,7 @@ $(document).on("click", ".editClient", function () {
   var refereeUrl = $("#referee_url").val();
   var referral_css_url = $("#referral_css_url").val();
   var referral_notify_email = $("#referral_notify_email").val();
+  var api_available = $("#api_available").is(':checked');
   var products = [];
   $('#product-group .product-field').each(function (i, e) {
     return products.push($(e).val());
@@ -80317,6 +80318,7 @@ $(document).on("click", ".editClient", function () {
   formData.append('referral_css_url', referral_css_url);
   formData.append('referral_notify_email', referral_notify_email);
   formData.append('products', JSON.stringify(products));
+  formData.append('api_available', api_available);
 
   if (typeof logo !== 'undefined') {
     formData.append('logo', logo);
