@@ -54,7 +54,6 @@ class ReportController extends Controller
 
     public function get(Request $request)
     {
-      \Log::info(1);
         $clientId = Auth::user()->client_id;
 
         $now = Carbon::now();
@@ -113,7 +112,7 @@ class ReportController extends Controller
         $vars = [$clientId, $start, $end];
         $uniqueVisitsReferee = DB::select($query, $vars)[0]->count;
 
-        $response['leadConversionRate'] = $uniqueVisitsReferee > 0 ? number_format((float)$response['referredLeads'] / $uniqueVisitsReferee * 100, 2, '.', '') . '%' : '-';
+        $response['leadConversionRate'] = $response['referredVisitors'] > 0 ? number_format((float)$response['referredLeads'] / $response['referredVisitors'] * 100, 2, '.', '') . '%' : '-';
         $response['salesConversionRateSTOR'] = $response['activeReferrers'] > 0 ? number_format((float)$response['referredSales'] / $response['activeReferrers'] * 100, 2, '.', '') . '%' : '-';
         $response['salesConversionRateSLC'] = $response['referredLeads'] > 0 ? number_format((float)$response['referredSales'] / $response['referredLeads'] * 100, 2, '.', '') . '%' : '-';
 
