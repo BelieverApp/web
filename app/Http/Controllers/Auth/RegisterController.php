@@ -159,7 +159,7 @@ class RegisterController extends Controller
 
         Mail::send('email.newuser', ['first_name' => $newuser->first, 'last_name' => $newuser->last, 'appstore_link' => $appstore_link], function ($message) use ($newuser){
             $message->from('no-reply@believer.io', 'Believer');
-            $message->to($newuser->email)->subject("Welcome to Beliver!");
+            $message->to($newuser->email)->subject("Welcome to Believer!");
         });
     }
 }
