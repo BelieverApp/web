@@ -55,7 +55,7 @@
 
                             <div class="input-group form-group">
                                 <input type="text" class="form-control" name="city" id="city" placeholder="City" value="" required>
-                                <input type="text" class="form-control" name="province" id="province" placeholder="Province/State" value="LA" required>
+                                <input type="text" class="form-control" name="province" id="province" placeholder="Province/State" value="" required>
                                 <input type="text" class="form-control" name="postal_code" id="postal_code" placeholder="Postal/Zip Code" value="" required>
                             </div>
 

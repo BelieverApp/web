@@ -19,6 +19,11 @@ return [
         'from_email' => env('BELIEVER_FROM_EMAIL'),
     ],
 
+    'elastic_email' => [
+        'key' => env('ELASTIC_KEY'),
+        'account' => env('ELASTIC_ACCOUNT')
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
@@ -29,11 +34,6 @@ return [
         'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
         'api_key' => env('CLOUDINARY_API_KEY'),
         'api_secret' => env('CLOUDINARY_API_SECRET'),
-    ],
-
-    'mailgun' => [
-            'domain' => env('MAILGUN_DOMAIN'),
-            'secret' => env('MAILGUN_SECRET'),
     ],
 
     'ses' => [
