@@ -15,8 +15,10 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "jrm2k6/cloudder": "^0.6.0",
+        "laravel-notification-channels/pusher-push-notifications": "^2.2",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
+        "pusher/pusher-php-server": "~4.0",
         "tymon/jwt-auth": "^0.5.12"
     },
     "require-dev": {

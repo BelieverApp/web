@@ -30,9 +30,9 @@ class ProfileController extends Controller
 
     public function show(Request $request)
     {
-        \Log::info('API\ProfileController@show: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        \Log::info('API\ProfileController@show: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
         //POST http://localhost:8000/api/v1/profile
         // {
@@ -52,7 +52,7 @@ class ProfileController extends Controller
         $referrals_sent_count = Referral::where('referred_by_id', $request->user_id)->get()->count();
 
         if(empty($missions_completed_count)){
-            $user->missions_completed_count = 0;    
+            $user->missions_completed_count = 0;
         } else {
             $user->missions_completed_count = $missions_completed_count;
         }
@@ -67,8 +67,8 @@ class ProfileController extends Controller
     public function balance(Request $request)
     {
         \Log::info('API\ProfileController@balance: ' . PHP_EOL .
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
         //POST http://localhost:8000/api/v1/profile/pointbalance
         // {
@@ -79,11 +79,11 @@ class ProfileController extends Controller
 
     public function challengeHistory(Request $request)
     {
-        \Log::info('API\ProfileController@challengeHistory: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        \Log::info('API\ProfileController@challengeHistory: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
-        
+
         // POST http://localhost:8000/api/v1/profile/history
         // {
         //     "user_id": 20
@@ -120,9 +120,9 @@ class ProfileController extends Controller
 
     public function editUsername(Request $request)
     {
-        \Log::info('API\ProfileController@editUsername: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        \Log::info('API\ProfileController@editUsername: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
         // POST http://localhost:8000/api/v1/profile/updateUsername
         // {
@@ -143,9 +143,9 @@ class ProfileController extends Controller
 
     public function editContact(Request $request)
     {
-        \Log::info('API\ProfileController@editContact: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        \Log::info('API\ProfileController@editContact: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
         // POST http://localhost:8000/api/v1/profile/updateUsername
         // {
@@ -171,10 +171,10 @@ class ProfileController extends Controller
 
     public function leaderboard(Request $request)
     {
-        \Log::info('API\ProfileController@leaderboard: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
-        PHP_EOL . " -------------");     
+        \Log::info('API\ProfileController@leaderboard: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
+        PHP_EOL . " -------------");
         // POST http://localhost:8000/api/v1/profile/leaderboard
         // {
         //     "user_id": 6
@@ -216,9 +216,9 @@ class ProfileController extends Controller
 
     public function uploadProfilePic(Request $request)
     {
-        \Log::info('API\ProfileController@uploadProfilePic: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        \Log::info('API\ProfileController@uploadProfilePic: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
 
         $user = User::find($request->user_id);
@@ -241,11 +241,11 @@ class ProfileController extends Controller
 
     public static function deleteYourAccount(Request $request)
     {
-        \Log::info('API\ProfileController@deleteYourAccount: ' . PHP_EOL . 
-        "IP: " . $this->ip . PHP_EOL . 
-        $request . 
+        \Log::info('API\ProfileController@deleteYourAccount: ' . PHP_EOL .
+        "IP: " . $this->ip . PHP_EOL .
+        $request .
         PHP_EOL . " -------------");
-        
+
         $user = User::find($request->user_id);
         if(!$user) {
             return response()->json([
@@ -274,6 +274,24 @@ class ProfileController extends Controller
     {
         //return strcmp($a->rank, $b->rank);
         return $a->rank - $b->rank;
+    }
+
+    public function updateNotifications(Request $request)
+    {
+        \Log::info('API\ProfileController@updateNotifications: ' . PHP_EOL .
+            "IP: " . $this->ip . PHP_EOL .
+            $request .
+            PHP_EOL . " -------------");
+        $user = User::find($request->user_id);
+        if($user) {
+            if ($request->has('missionNotification')) {
+                User::where('id', $request->user_id)->update(['missionNotification' => $request->missionNotification]);
+            }
+            if ($request->has('emailNotification')) {
+                User::where('id', $request->user_id)->update(['emailNotification' => $request->emailNotification]);
+            }
+        }
+        return $user;
     }
 
 }

@@ -56,4 +56,9 @@ return [
         ],
     ],
 
+    'pusher' => [
+        'beams_instance_id' => env('PUSHER_BEAMS_INSTANCE'),
+        'beams_secret_key' => env('PUSHER_BEAMS_SECRET'),
+    ],
+
 ];

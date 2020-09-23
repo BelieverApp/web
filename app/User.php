@@ -87,4 +87,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $rewards;
     }
+
+    public function routeNotificationForPusherPushNotifications()
+    {
+        return "believer-{$this->id}";
+    }
+
 }

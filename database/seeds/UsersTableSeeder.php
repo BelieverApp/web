@@ -32,6 +32,8 @@ class UsersTableSeeder extends Seeder
 
         User::create(array('name' => 'Jane Believer','first' => 'Jane','last' => 'Believer','email' => 'janebeliever@gmx.com','group_id' => 3,'email_verified_at' => now(),'password' => bcrypt('ketchup9'),'point_balance' => $faker->numberBetween(0,2500),'social_accounts' => '','level' => $faker->numberBetween(1,9),'address1' => $faker->streetAddress,'address2' => '','city' => $faker->city,'province' => $faker->stateAbbr,'postal_code' => $faker->postcode,'phone1' => $faker->phoneNumber,'phone2' => $faker->phoneNumber));
 
+        User::create(array('name' => 'Jesse Read','first' => 'Jesse','last' => 'Read','email' => 'jesse@nerder.com','group_id' => 1,'email_verified_at' => now(),'password' => bcrypt('ketchup9'),'point_balance' => $faker->numberBetween(0,2500),'social_accounts' => '','level' => $faker->numberBetween(1,9),'address1' => $faker->streetAddress,'address2' => '','city' => $faker->city,'province' => $faker->stateAbbr,'postal_code' => $faker->postcode,'phone1' => $faker->phoneNumber,'phone2' => $faker->phoneNumber));
+
 
 
         for($i = 0; $i < 500; $i++) {

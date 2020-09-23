@@ -18,7 +18,8 @@ class GetClientAdminInfo
     public function handle($request, Closure $next)
     {
         $user_id = Auth::user()->id;
-        $client_id = ClientUser::where('user_id', $user_id)->first()->client_id;
+        $client_user = ClientUser::where('user_id', $user_id)->first();
+        $client_id = $client_user->client_id;
         Auth::user()->client_id = $client_id;
         return $next($request);
     }

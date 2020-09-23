@@ -45,6 +45,7 @@ Route::post('/v1/profile/editContact', 'API\ProfileController@editContact');
 Route::post('/v1/profile/leaderboard', 'API\ProfileController@leaderboard');
 Route::post('/v1/profile/editProfilePic', 'API\ProfileController@uploadProfilePic');
 Route::post('/v1/profile/delete', 'API\ProfileController@deleteYourAccount');
+Route::post('/v1/profile/updateNotifications', 'API\ProfileController@updateNotifications');
 
 Route::post('/v1/messages', 'API\MessagesController@index');
 Route::post('/v1/messages/show', 'API\MessagesController@show');
