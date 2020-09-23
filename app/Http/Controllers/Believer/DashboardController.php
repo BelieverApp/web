@@ -9,6 +9,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return "this is the dashboard view for a BELIEVER";
+        return "this is the dashboard view for a BELIEVER - test";
     }
 }
