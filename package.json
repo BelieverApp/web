@@ -33,7 +33,7 @@
         "ajv": "^6.8.1",
         "chart.js": "^2.8.0",
         "datatables": "^1.10.18",
-        "datatables.net": "^1.10.19",
+        "datatables.net": "^1.10.22",
         "daterangepicker": "^3.0.3",
         "font-awesome": "^4.7.0",
         "icheck": "^1.0.2",
