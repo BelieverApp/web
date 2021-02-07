@@ -11,7 +11,7 @@ if(isset($cssUrl)) {
   <body>
     <div class="referee-page">
       <div class="instructions">
-        To complete your referral registration, fill out the form below. One of our area managers will be in touch to schedule a call or showhome visit.
+        Fill out the form below and a Morrison representative will be in touch shortly to answer your questions and provide more information.
       </div>
 
       <form class="referee-form" action="referee-data" method="post" target="_self">
