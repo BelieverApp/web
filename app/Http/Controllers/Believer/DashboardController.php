@@ -53,7 +53,7 @@ class DashboardController extends Controller
             $sent_to = 0;
             foreach($followers as $follower) {
                 $user = User::find($follower->user_id);
-                if($user->missionNotification == 1) {
+                if($user && $user->missionNotification == 1) {
                     $user->notify(new NewMission($user->id));
                     $sent_to++;
                 }
